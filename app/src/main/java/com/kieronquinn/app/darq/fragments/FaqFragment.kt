@@ -19,6 +19,7 @@ import ru.noties.markwon.core.MarkwonTheme
 
 class FaqFragment : Fragment() {
 
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_faq, container, false)
 	}
@@ -42,8 +43,16 @@ class FaqFragment : Fragment() {
 					}
 				}
 			}).build()
-			val markdown = activity.assets.open("faq.md").bufferedReader().use { it.readText() }
-			markwon.setMarkdown(view.markdown, markdown)
+
+
+			val locale = getResources().getConfiguration().locale.getCountry()
+			val fileNameFaq  = if (locale.equals("CN")) "faq.zh-Hans.md" else "faq.md"
+
+			val markdown = activity.assets.open(fileNameFaq).bufferedReader().use{it.readText()}
+
+			//val markdown = activity.assets.open("faq.md").bufferedReader().use { it.readText() }
+				markwon.setMarkdown(view.markdown, markdown)
+
 		}
 
 	}

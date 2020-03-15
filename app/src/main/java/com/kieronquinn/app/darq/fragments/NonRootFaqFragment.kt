@@ -42,7 +42,13 @@ class NonRootFaqFragment : Fragment() {
 					}
 				}
 			}).build()
-			val markdown = activity.assets.open("non-root-faq.md").bufferedReader().use { it.readText() }
+
+			val locale = getResources().getConfiguration().locale.getCountry()
+			val fileNameFaq  = if (locale.equals("CN")) "non-root-faq.md.zh-Hans.md" else "non-root-faq.md"
+
+			val markdown = activity.assets.open(fileNameFaq).bufferedReader().use{it.readText()}
+
+			//val markdown = activity.assets.open("non-root-faq.md").bufferedReader().use { it.readText() }
 			markwon.setMarkdown(view.markdown, markdown)
 		}
 
